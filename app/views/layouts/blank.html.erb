@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="<%= env('STATIC_URL')%>favicon.ico" type="image/x-icon">
+  <title><%= content_for?(:title) ? yield(:title) : 'Mi Dashboard' %></title>
+  <link rel="stylesheet" href="<%= env('STATIC_URL')%>dist/vendor.min.css">
+  <!-- Estilos personalizados -->  
+  <%= yield :extra_css %>
+</head>
+
+<body>
+  <%= yield %>
+  
+  <script src="<%= env('STATIC_URL')%>dist/vendor.js"></script>
+  <%= yield :extra_js %>
+</body>
+</html>

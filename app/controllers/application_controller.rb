@@ -2,10 +2,16 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
+  helper_method :env
+
   before_action :set_custom_header
   before_action :require_login
 
   private
+
+  def env(key)
+    ENV[key.to_s]
+  end
 
   def set_custom_header
     response.set_header("Server", "Ubuntu")
