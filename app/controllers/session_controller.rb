@@ -1,7 +1,7 @@
 # app/controllers/session_controller.rb
 class SessionController < ApplicationController
   layout "blank"
-  before_action :redirect_if_logged_in #, only:[] #only: [:sign_in, :login]
+  before_action :redirect_if_logged_in, only:[:login]
 
   def sign_in
     
@@ -22,5 +22,11 @@ class SessionController < ApplicationController
       flash[:alert] = "Usuario o contraseña incorrectos"
       render :sign_in 
     end
+  end
+
+   def sign_out
+    session[:user_id] = nil
+    flash[:notice] = "Sesión cerrada correctamente"
+    redirect_to sign_in_path
   end
 end

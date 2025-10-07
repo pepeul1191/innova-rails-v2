@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 import '../stylesheets/styles.css';
-
 
 document.addEventListener('DOMContentLoaded', function() {
   // Cerrar alerts al hacer click en el botón

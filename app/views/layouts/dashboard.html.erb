@@ -36,46 +36,6 @@
   <script src="<%= assets_path %>dist/simplemde.min.js"></script>
   <script src="<%= assets_path %>dist/vendor.js"></script>
   <script src="<%= assets_path %>dist/app.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const sidebarToggle = document.getElementById('sidebarToggle');
-      const sidebar = document.querySelector('.sidebar');
-      
-      let isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
-      
-      function updateSidebarState() {
-        if (window.innerWidth <= 992) {
-          sidebar.classList.add('collapsed');
-        } else {
-          sidebar.classList.toggle('collapsed', isCollapsed);
-        }
-      }
-      
-      updateSidebarState();
-      
-      sidebarToggle.addEventListener('click', function() {
-        if (window.innerWidth <= 992) {
-          sidebar.classList.toggle('collapsed');
-        } else {
-          isCollapsed = !isCollapsed;
-          localStorage.setItem('sidebarCollapsed', isCollapsed);
-          sidebar.classList.toggle('collapsed');
-        }
-      });
-      
-      document.querySelectorAll('.sidebar .nav-link').forEach(link => {
-        link.addEventListener('click', function() {
-          if (window.innerWidth <= 992) {
-            sidebar.classList.add('collapsed');
-          }
-        });
-      });
-      
-      window.addEventListener('resize', function() {
-        updateSidebarState();
-      });
-    });
-  </script>
   <%= yield :extra_js %>
 </body>
 </html>
