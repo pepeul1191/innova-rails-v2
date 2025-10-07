@@ -25,13 +25,13 @@
   <div class="auth-card card shadow-sm">
     <div class="card-body p-4">
       <div class="text-center mb-4">
-        <img src="<%= env('STATIC_URL')%>icon.png"  height="90" width="90" alt="" class="icon">
+        <img src="<%= assets_path %>icon.png"  height="90" width="90" alt="" class="icon">
         <h2>InnovaULima</h2>
         <p class="text-muted">Ingresa tus credenciales para acceder al sistema</p>
       </div>
 
       <!-- Incluir partial de flash messages -->
-      <%= render 'shared/flash_messages' %>
+      <%= render 'partials/flash_messages' %>
 
       <form method="post" action="<%= sign_in_path %>">
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">

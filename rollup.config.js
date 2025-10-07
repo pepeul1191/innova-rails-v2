@@ -5,35 +5,53 @@ import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import css from 'rollup-plugin-css-only';
 import copy from 'rollup-plugin-copy';
+import postcss from 'rollup-plugin-postcss';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 const production = !process.env.ROLLUP_WATCH;
 
 const App = {
-	input: 'src/entries/app.js',
-	output: {
-		sourcemap: true,
-		format: 'iife',
-		name: 'app',
-		file: production ? 'public/dist/app.min.js' : 'public/dist/app.js',
-	},
-	plugins: [
-		svelte({
-			compilerOptions: {
-				dev: !production
-			}
-		}),
-		css({ output: production ?  'app.min.css' : 'app.css' }),
-		resolve({
-			browser: true,
-			dedupe: ['svelte'],
-			exportConditions: ['svelte']
-		}),
-		commonjs(),
-		production && terser()
-	],
-	watch: {
-		clearScreen: false
-	}
+  input: 'src/entries/app.js', // Tu archivo de entrada principal
+  output: {
+    file: 'public/dist/app.min.js',
+    format: 'iife',
+    sourcemap: !production
+  },
+  plugins: [
+    // Procesamiento de CSS
+    postcss({
+      extract: true, // Extrae CSS a archivo separado
+      minimize: production,
+      plugins: [
+        require('autoprefixer')() // Opcional: agrega prefijos vendor
+      ]
+    }),
+
+    // Resolución de módulos
+    nodeResolve({
+      browser: true
+    }),
+
+    // Soporte para CommonJS
+    commonjs(),
+
+    // Minificación en producción
+    production && terser(),
+
+    // Copia archivos estáticos (opcional)
+    copy({
+      targets: [
+        { 
+					src: 'src/assets/*', 
+					dest: 'public/dist/assets' 
+				},
+				{
+          src: 'node_modules/simplemde/dist/*',
+          dest: 'public/dist/'
+        }
+      ]
+    })
+  ]
 };
 
 const Login = {
@@ -108,4 +126,4 @@ const Vendor = {
 	}
 };
 
-export default [Vendor ];
+export default [Vendor, App ];

@@ -3,19 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  <link rel="icon" href="<%= env('STATIC_URL')%>icon.png" type="image/png">
+  <link rel="icon" href="<%= assets_path %>icon.png" type="image/png">
   <title><%= content_for?(:title) ? yield(:title) : 'Mi Dashboard' %></title>
-  <link rel="stylesheet" href="<%= env('STATIC_URL')%>dist/vendor.min.css">
-  <!-- Estilos personalizados -->  
+  <link rel="stylesheet" href="<%= assets_path %>dist/simplemde.min.css">
+  <link rel="stylesheet" href="<%= assets_path %>dist/vendor.min.css">
+  <link rel="stylesheet" href="<%= assets_path %>dist/app.min.css">
+  <!-- Estilos personalizados -->
+  <script>
+    const URLS = {
+      BASE: "<%= ENV['APP_BASE_URL'] %>",
+      FILES: "<%= ENV['FILES_URL'] %>",
+    }
+  </script>
   <%= yield :extra_css %>
 </head>
 
-<body>
-  <%= yield %>
-  
-  <script src="<%= env('STATIC_URL')%>dist/vendor.js"></script>
+<body class="dashboard-layout">
+  <div class="wrapper">
+    <!-- Navbar Partial -->
+    <%= render 'partials/navbar' %>
+
+    <!-- Sidebar Partial -->
+    <%= render 'partials/sidebar' %>
+
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+      <%= yield %>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="<%= assets_path %>dist/simplemde.min.js"></script>
+  <script src="<%= assets_path %>dist/vendor.js"></script>
+  <script src="<%= assets_path %>dist/app.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.querySelector('.sidebar');
+      
+      let isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+      
+      function updateSidebarState() {
+        if (window.innerWidth <= 992) {
+          sidebar.classList.add('collapsed');
+        } else {
+          sidebar.classList.toggle('collapsed', isCollapsed);
+        }
+      }
+      
+      updateSidebarState();
+      
+      sidebarToggle.addEventListener('click', function() {
+        if (window.innerWidth <= 992) {
+          sidebar.classList.toggle('collapsed');
+        } else {
+          isCollapsed = !isCollapsed;
+          localStorage.setItem('sidebarCollapsed', isCollapsed);
+          sidebar.classList.toggle('collapsed');
+        }
+      });
+      
+      document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+          if (window.innerWidth <= 992) {
+            sidebar.classList.add('collapsed');
+          }
+        });
+      });
+      
+      window.addEventListener('resize', function() {
+        updateSidebarState();
+      });
+    });
+  </script>
   <%= yield :extra_js %>
 </body>
 </html>
