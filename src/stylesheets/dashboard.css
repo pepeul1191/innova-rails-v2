@@ -9,12 +9,15 @@ body.dashboard-layout {
   top: 56px;
   left: 0;
   transition: all 0.3s;
+  z-index: 10;
   background-color: var(--bs-primary) !important;
 }
 
 .sidebar-header h3{
   font-size: 20px;
-  margin-left: 10px;
+  margin-left: 15px;
+  margin-top: 20px;
+  padding-bottom: 0px;
 }
 
 .sidebar.collapsed {
@@ -29,6 +32,18 @@ body.dashboard-layout {
 
 .sidebar.collapsed ~ .content-wrapper {
   margin-left: 0;
+}
+
+/* footer */
+
+body {
+  padding-bottom: 60px; /* Espacio para el footer fijo */
+}
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 @media (max-width: 768px) {
@@ -49,7 +64,7 @@ body.dashboard-layout {
 .sidebar .nav-link.active {
   background-color: white !important;
   color: black !important;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
 /* Opcional: Efecto hover */

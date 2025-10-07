@@ -6,5 +6,6 @@ class HomeController < ApplicationController
   def index
     # Tu lógica aquí
     @welcome_message = "Bienvenido a mi aplicación"
+    @nav_link = 'home'
   end
 end

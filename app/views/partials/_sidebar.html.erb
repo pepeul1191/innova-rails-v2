@@ -1,74 +1,21 @@
 <div class="sidebar bg-primary text-white">
-  <div class="sidebar-header p-3">
-    <h3><img src="<%= assets_path %>icon-contrast.png"  height="40" width="40" alt="" class="icon">Innova ULima</h3>
+  <div class="sidebar-header">
+    <h3 class="d-flex align-items-center mb-0">
+      <img src="<%= assets_path %>icon-contrast.png" height="40" width="40" alt="" class="icon me-2">
+      Innova ULima
+    </h3>
   </div>
-
+  <hr>
   <ul class="nav flex-column">
     <li class="nav-item">
-      <a class="nav-link <%= 'active' if @nav_link == 'management' %>" href="/management">
+      <a class="nav-link <%= 'active' if @nav_link == 'home' %>" href="/">
         <i class="fa fa-home me-2"></i> Inicio
       </a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link <%= 'active' if @nav_link == 'locations' %>" href="/management/locations">
-        <i class="fa fa-map me-2"></i> Locaciones
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link <%= 'active' if @nav_link == 'tags' %>" href="/management/tags">
-        <i class="fa fa-tag me-2"></i> Etiquetas
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link <%= 'active' if @nav_link == 'enterprises' %>" href="/management/enterprises">
-        <i class="fa fa-industry me-2"></i> Empresas
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link <%= 'active' if @nav_link == 'employees' %>" href="/management/employees">
-        <i class="fa fa-user me-2"></i> Empleados
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link <%= 'active' if @nav_link == 'assets' %>" href="/management/assets">
-        <i class="fa fa-cube me-2"></i> Activos
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link <%= 'active' if @nav_link == 'roles' %>" href="/management/issue-states">
-        <i class="fa fa-list me-2"></i> Estados de Incidencias
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link <%= 'active' if @nav_link == 'roles' %>" href="/management/priorities">
-        <i class="fa fa-sort me-2"></i> Prioridades de Incidencias
-      </a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-link" href="#productosSubmenu" data-bs-toggle="collapse">
-        <i class="fa fa-cubes me-2"></i> Incidencias
-      </a>
-      <ul id="productosSubmenu" class="collapse nav flex-column ps-4">
-        <li class="nav-item">
-          <a class="nav-link" href="/management/products">Lista</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/management/new">Agregar</a>
-        </li>
-      </ul>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-link" href="/management/config">
-        <i class="fa fa-cog me-2"></i> Configuración
+      <a class="nav-link <%= 'active' if @nav_link == 'master-data' %>" href="/admin/master-data">
+        <i class="fa fa-cc-mastercard me-2"></i> Datos Maestros
       </a>
     </li>
   </ul>

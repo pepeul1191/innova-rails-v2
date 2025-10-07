@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   get 'sign-up', to: 'session#sign_up', as: :sign_up
   get 'sign-out', to: 'session#sign_out', as: :sign_out
 
+  namespace :admin do
+    get 'master-data', to: 'admin#master_data'
+    get 'period', to: 'period#index'
+  end
+
   match '*unmatched', to: 'errors#not_found', via: :all
   # Defines the root path route ("/")
   root "home#index"

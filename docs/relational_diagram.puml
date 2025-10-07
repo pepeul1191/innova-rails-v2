@@ -1,0 +1,51 @@
+@startuml
+!theme plain
+
+entity "program_types" {
+  * id : INTEGER
+  --
+  * name: VARCHAR(30)
+}
+
+entity "periods" {
+  * id : INTEGER
+  --
+  * name: VARCHAR(10)
+  * init_date: DATE
+  * end_date: DATE
+}
+
+entity "programs" {
+  * id : INTEGER
+  --
+  * name: VARCHAR(30)
+  * description: TEXT
+  * image_url: VARCHAR(60)
+  * pdf_url: VARCHAR(60)
+  * max_participant_team: INT
+  * created_at: DATETIME
+  * updated_at: DATETIME
+  * program_type_id (FK): INT
+  * period_id (FK): INT
+}
+
+entity "phase" {
+  * id : INTEGER
+  --
+  * name: VARCHAR(30)
+  * description: TEXT
+  * init_date: DATE
+  * end_date: DATE
+  * delivery_deadline: DATE
+  * evaluation_deadline: DATE
+  * revaluation_deadline: DATE
+  * created_at: DATETIME
+  * updated_at: DATETIME
+  * program_id (FK): INT
+}
+
+programs }|--|| periods : period_id
+programs }|--|| program_types : program_type_id
+phase }|--|| programs : program_id
+
+@enduml

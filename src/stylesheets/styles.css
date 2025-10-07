@@ -14,7 +14,7 @@ body {
 
 :root {
     --bs-primary: #ff5216; /* Naranja brillante */
-    --bs-secondary: #1a1a1a; /* Gris muy oscuro */
+    --bs-secondary: #1D1D1B; /* Gris muy oscuro */
 }
 
 a {
@@ -22,10 +22,6 @@ a {
     text-decoration: none;
     /*font-family: 'Poppins', sans-serif;*/
     color: var(--bs-primary);
-}
-
-li {
-    list-style: none;
 }
 
 h4 {
@@ -213,11 +209,11 @@ h4 {
 }
 
 main{
-    background-color: #f9f9f9;
+    background-color: transparent !important;
 }
 
 footer{
-    background-color: #f9f9f9;
+    background-color: transparent !important;
 }
 
 .form-control, .btn{
