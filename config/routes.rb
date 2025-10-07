@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   get 'sign-in', to: 'session#sign_in', as: :sign_in
+  post 'sign-in', to: 'session#login', as: :login
   get 'reset-password', to: 'session#reset_password', as: :reset_password
   get 'sign-up', to: 'session#sign_up', as: :sign_up
   # Defines the root path route ("/")

@@ -1,10 +1,12 @@
 require_relative "boot"
 
 require "rails/all"
+require 'dotenv/load'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+Dotenv::Railtie.load if ['development', 'test', 'production'].include? ENV['RAILS_ENV']
 
 module Innova
   class Application < Rails::Application
