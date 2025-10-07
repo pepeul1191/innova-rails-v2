@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   post 'sign-in', to: 'session#login', as: :login
   get 'reset-password', to: 'session#reset_password', as: :reset_password
   get 'sign-up', to: 'session#sign_up', as: :sign_up
+
+  match '*unmatched', to: 'errors#not_found', via: :all
   # Defines the root path route ("/")
   root "home#index"
 end
