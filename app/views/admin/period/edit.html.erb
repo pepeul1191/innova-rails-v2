@@ -1,0 +1,58 @@
+<main class="main-content">
+  <div class="container-fluid">
+    <h3 class="mb-4">
+      <a href="/admin/master-data"><i class="fa fa-cc-mastercard me-2"></i>Gestión de Datos Maestros</a> / 
+      <a href="/admin/period">Periodos Académicos</a> /
+      Editar Periodo Académico
+    </h3>
+
+    <!-- Incluir partial de flash messages -->
+    <%= render 'partials/flash_messages' %>
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <h6 class="mb-0">
+          <i class="fa fa-edit me-2"></i>
+          Editar Periodo: <%= @period.name %>
+        </h6>
+      </div>
+
+      <div class="card-body">
+        <!-- Formulario para editar el periodo -->
+        <form action="/admin/period/<%= @period.id %>" method="POST" class="row g-3">
+          <!-- Agregar método PUT -->
+          <input type="hidden" name="_method" value="PUT">
+          <!-- Agregar un campo CSRF -->
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+          <!-- Campo: Nombre del Periodo -->
+          <div class="col-md-4">
+            <label for="period_name" class="form-label">Nombre del Periodo</label>
+            <input type="text" id="period_name" name="name" class="form-control" maxlength="10" 
+                   value="<%= @period.name %>" required>
+          </div>
+
+          <!-- Campo: Fecha de Inicio -->
+          <div class="col-md-4">
+            <label for="period_init_date" class="form-label">Fecha de Inicio</label>
+            <input type="date" id="period_init_date" name="init_date" class="form-control" 
+                   value="<%= @period.init_date %>" required>
+          </div>
+
+          <!-- Campo: Fecha de Fin -->
+          <div class="col-md-4">
+            <label for="period_end_date" class="form-label">Fecha de Fin</label>
+            <input type="date" id="period_end_date" name="end_date" class="form-control" 
+                   value="<%= @period.end_date %>" required>
+          </div>
+
+          <!-- Botones de acción -->
+          <div class="col-12 mt-4">
+            <button type="submit" class="btn btn-success"><i class="fa fa-save me-2"></i>Actualizar Periodo</button>
+            <a href="/admin/period" class="btn btn-warning ms-2"><i class="fa fa-times me-2"></i>Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

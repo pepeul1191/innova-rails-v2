@@ -3,22 +3,50 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-Things you may want to cover:
+### .env
 
-* Ruby version
+    #### DBMATE
+    DB=sqlite:db/app.db
+    #### RAILS
+    BASE_URL=http://localhost:3000/
+    STATIC_URL=http://localhost:3000/
+    USERNAME=admin
+    PASSWORD=123
 
-* System dependencies
+### Migraciones con DBMATE
 
-* Configuration
+Instalar dependencias:
 
-* Database creation
+    $ npm install
 
-* Database initialization
+Crear migración:
 
-* How to run the test suite
+    $ npm run db:new <nombre-migración>
 
-* Services (job queues, cache servers, search engines, etc.)
+Ejecutar
 
-* Deployment instructions
+    $ npm run db:up
 
-* ...
+Deshacer
+
+    $ npm run db:rollback
+
+Ejemplos de código en Sqlite3
+
+```sql
+-- Crear una entidad fuerte
+CREATE TABLE paises (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  nombre VARCHAR(40) NOT NULL,
+  bandera_url VARCHAR(100) NOT NULL,
+  gentilicio VARCHAR(30) NOT NULL
+);
+-- Crear una entidad debil
+CREATE TABLE recurso_coleccion (
+  id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  coleccion_id INTEGER NOT NULL,
+  recurso_id INTEGER NOT NULL,
+  FOREIGN KEY (coleccion_id) REFERENCES coleccion (id),
+  FOREIGN KEY (recurso_id) REFERENCES recurso (id)
+);
+```

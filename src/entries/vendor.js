@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
           if (alert.parentNode) {
             alert.remove();
           }
-        }, 300);
+        }, 600);
       }
     }, 5000);
   });

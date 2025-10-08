@@ -18,6 +18,11 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'master-data', to: 'admin#master_data'
     get 'period', to: 'period#index'
+    get 'period/new', to: 'period#new'
+    post 'period', to: 'period#create'
+    put 'period/:id', to: 'period#update'
+    get 'period/:id/edit', to: 'period#edit'
+    get 'period/:id/delete', to: 'period#delete'
   end
 
   match '*unmatched', to: 'errors#not_found', via: :all

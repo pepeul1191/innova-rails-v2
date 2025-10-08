@@ -1,0 +1,14 @@
+-- migrate:up
+
+CREATE TABLE periods (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name VARCHAR(10) NOT NULL UNIQUE,
+  init_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- migrate:down
+
+DROP TABLE periods;
