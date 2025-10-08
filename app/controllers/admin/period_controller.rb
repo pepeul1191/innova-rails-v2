@@ -8,7 +8,7 @@ module Admin
     # Agrega aquí la lógica de tu controlador
     def index
       @nav_link = 'master-data'
-      result = PeriodService.all_periods
+      result = PeriodService.fetch_all
 
       if result[:success]
         @periods = result[:data]

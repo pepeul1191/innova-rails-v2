@@ -1,6 +1,6 @@
 # app/services/period_service.rb
 class PeriodService < ApplicationService
-  def self.all_periods
+  def self.fetch_all
     periods = Period.all.order(name: :asc)
     build_response(data: periods, message: "Lista de periodos obtenida exitosamente")
   rescue => e

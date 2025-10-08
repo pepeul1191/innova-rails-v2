@@ -17,12 +17,20 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'master-data', to: 'admin#master_data'
+    # period
     get 'period', to: 'period#index'
     get 'period/new', to: 'period#new'
     post 'period', to: 'period#create'
     put 'period/:id', to: 'period#update'
     get 'period/:id/edit', to: 'period#edit'
     get 'period/:id/delete', to: 'period#delete'
+    # program-type
+    get 'program-type', to: 'program_type#index'
+    get 'program-type/new', to: 'program_type#new'
+    post 'program-type', to: 'program_type#create'
+    put 'program-type/:id', to: 'program_type#update'
+    get 'program-type/:id/edit', to: 'program_type#edit'
+    get 'program-type/:id/delete', to: 'program_type#delete'
   end
 
   match '*unmatched', to: 'errors#not_found', via: :all

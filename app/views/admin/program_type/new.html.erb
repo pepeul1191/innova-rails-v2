@@ -1,0 +1,41 @@
+<main class="main-content">
+  <div class="container-fluid">
+    <h3 class="mb-4">
+      <a href="/admin/master-data"><i class="fa fa-cc-mastercard me-2"></i>Gestión de Datos Maestros</a> / 
+      <a href="/admin/program-type">Tipos de Programa</a> /
+      Crear Tipo de Programa
+    </h3>
+
+    <!-- Incluir partial de flash messages -->
+    <%= render 'partials/flash_messages' %>
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <h6 class="mb-0">
+          <i class="fa fa-plus me-2"></i>
+          Nuevo Tipo de Programa
+        </h6>
+      </div>
+
+      <div class="card-body">
+        <!-- Formulario para crear un nuevo periodo -->
+        <form action="/admin/program-type" method="POST" class="row g-3">
+          <!-- Agregar un campo CSRF -->
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+          <!-- Campo: Nombre del Periodo -->
+          <div class="col-md-4">
+            <label for="period_name" class="form-label">Nombre del Tipo de Programa</label>
+            <input type="text" id="period_name" name="name" class="form-control" maxlength="20" required>
+          </div>
+
+          <!-- Botones de acción -->
+          <div class="col-12 mt-4">
+            <button type="submit" class="btn btn-success"><i class="fa fa-save me-2"></i>Guardar Periodo</button>
+            <a href="/admin/program-type" class="btn btn-warning ms-2"><i class="fa fa-times me-2"></i>Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
