@@ -43,7 +43,8 @@
                         <i class="fa fa-edit"></i> Editar
                       </a>
                       <a href="/admin/period/<%= period.id %>/delete" class="btn btn-outline-danger" data-method="delete"
-                        data-confirm="¿Estás seguro de eliminar este periodo?">
+                        data-confirm="¿Estás seguro de eliminar este periodo?"
+                        onclick="return confirm('¿Estás seguro de eliminar este periodo?');">
                         <i class="fa fa-trash"></i> Eliminar
                       </a>
                     </td>
