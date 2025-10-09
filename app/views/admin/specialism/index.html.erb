@@ -1,7 +1,7 @@
 <main class="main-content">
   <div class="container-fluid">
     <h3 class="mb-4">
-      <a href="/admin/master-data"><i class="fa fa-cc-mastercard me-2"></i>Gestión de Datos Maestros</a> / Industrias
+      <a href="/admin/master-data"><i class="fa fa-cc-mastercard me-2"></i>Gestión de Datos Maestros</a> / Especialidades de Mentores
     </h3>
 
     <%= render 'partials/flash_messages' %>
@@ -10,12 +10,12 @@
       <div class="card-header">
         <h6 class="mb-0">
           <i class="fa fa-list me-2"></i>
-          Lista de Industrias
+          Lista de Especialidades
         </h6>
       </div>
       <div class="card-body">
         <div class="d-flex justify-content-end mb-3">
-          <a href="/admin/industry/new" class="btn btn-success">
+          <a href="/admin/specialism/new" class="btn btn-success">
             <i class="fa fa-plus"></i> Agregar Registro
           </a>
         </div>
@@ -29,17 +29,17 @@
               </tr>
             </thead>
             <tbody>
-              <% if @industries.any? %>
-                <% @industries.each do |industry| %>
+              <% if @specialisms.any? %>
+                <% @specialisms.each do |specialism| %>
                   <tr>
-                    <td><%= industry.name %></td>
+                    <td><%= specialism.name %></td>
                     <td class="text-end btn-group-sm">
-                      <a href="/admin/industry/<%= industry.id %>/edit" class="btn btn-outline-secondary me-1">
+                      <a href="/admin/specialism/<%= specialism.id %>/edit" class="btn btn-outline-secondary me-1">
                         <i class="fa fa-edit"></i> Editar
                       </a>
-                      <a href="/admin/industry/<%= industry.id %>/delete" class="btn btn-outline-danger" data-method="delete"
-                        data-confirm="¿Estás seguro de eliminar esta industria?"
-                        onclick="return confirm('¿Estás seguro de eliminar esta industria?');">
+                      <a href="/admin/specialism/<%= specialism.id %>/delete" class="btn btn-outline-danger" data-method="delete"
+                        data-confirm="¿Estás seguro de eliminar esta especialidad?"
+                        onclick="return confirm('¿Estás seguro de eliminar esta especialidad?');">
                         <i class="fa fa-trash"></i> Eliminar
                       </a>
                     </td>
@@ -47,7 +47,7 @@
                 <% end %>
               <% else %>
                 <tr>
-                  <td colspan="4" class="text-center">No se encontraron industris.</td>
+                  <td colspan="4" class="text-center">No se encontraron especialidades.</td>
                 </tr>
               <% end %>
             </tbody>

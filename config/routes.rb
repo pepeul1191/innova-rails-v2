@@ -38,6 +38,13 @@ Rails.application.routes.draw do
     put 'industry/:id', to: 'industry#update'
     get 'industry/:id/edit', to: 'industry#edit'
     get 'industry/:id/delete', to: 'industry#delete'
+    # specialism
+    get 'specialism', to: 'specialism#index'
+    get 'specialism/new', to: 'specialism#new'
+    post 'specialism', to: 'specialism#create'
+    put 'specialism/:id', to: 'specialism#update'
+    get 'specialism/:id/edit', to: 'specialism#edit'
+    get 'specialism/:id/delete', to: 'specialism#delete'
   end
 
   match '*unmatched', to: 'errors#not_found', via: :all

@@ -19,6 +19,11 @@ CREATE TABLE industries (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name VARCHAR(30) NOT NULL UNIQUE
 );
+CREATE TABLE IF NOT EXISTS "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL);
+CREATE TABLE specialisms (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name VARCHAR(70) NOT NULL
+);
 -- Dbmate schema migrations
 INSERT INTO "schema_migrations" (version) VALUES
   ('20251007234822'),
@@ -28,4 +33,6 @@ INSERT INTO "schema_migrations" (version) VALUES
   ('20251009212813'),
   ('20251009212816'),
   ('20251009213035'),
-  ('20251009213040');
+  ('20251009213040'),
+  ('20251009221746'),
+  ('20251009221752');

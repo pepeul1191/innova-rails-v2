@@ -1,6 +1,24 @@
 @startuml
 !theme plain
 
+entity "document_types" {
+  * id : INTEGER
+  --
+  * name: VARCHAR(22)
+}
+
+entity "industries" {
+  * id : INTEGER
+  --
+  * name: VARCHAR(30)
+}
+
+entity "specialisms" {
+  * id : INTEGER
+  --
+  * name: VARCHAR(70)
+}
+
 entity "program_types" {
   * id : INTEGER
   --
