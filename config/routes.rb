@@ -31,6 +31,13 @@ Rails.application.routes.draw do
     put 'program-type/:id', to: 'program_type#update'
     get 'program-type/:id/edit', to: 'program_type#edit'
     get 'program-type/:id/delete', to: 'program_type#delete'
+    # industry
+    get 'industry', to: 'industry#index'
+    get 'industry/new', to: 'industry#new'
+    post 'industry', to: 'industry#create'
+    put 'industry/:id', to: 'industry#update'
+    get 'industry/:id/edit', to: 'industry#edit'
+    get 'industry/:id/delete', to: 'industry#delete'
   end
 
   match '*unmatched', to: 'errors#not_found', via: :all

@@ -16,10 +16,13 @@ module Admin
         @periods = []
         flash.now[:alert] = result[:message]
       end
+
+      render 'admin/period/index'
     end
 
     def new
       @nav_link = 'master-data'
+      render 'admin/period/new'
     end
 
     def create
@@ -39,6 +42,7 @@ module Admin
       resp = PeriodService.fetch_one(period_id)
       if resp[:success]
         @period = resp[:data]
+        render 'admin/period/edit'
       else
         flash[:alert] = resp[:message]
         redirect_to "/admin/period/new"

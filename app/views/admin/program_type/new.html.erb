@@ -6,7 +6,6 @@
       Crear Tipo de Programa
     </h3>
 
-    <!-- Incluir partial de flash messages -->
     <%= render 'partials/flash_messages' %>
 
     <div class="card mb-4">
@@ -18,20 +17,16 @@
       </div>
 
       <div class="card-body">
-        <!-- Formulario para crear un nuevo periodo -->
         <form action="/admin/program-type" method="POST" class="row g-3">
-          <!-- Agregar un campo CSRF -->
           <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
-          <!-- Campo: Nombre del Periodo -->
           <div class="col-md-4">
-            <label for="period_name" class="form-label">Nombre del Tipo de Programa</label>
-            <input type="text" id="period_name" name="name" class="form-control" maxlength="20" required>
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" id="name" name="name" class="form-control" maxlength="20" required>
           </div>
 
-          <!-- Botones de acción -->
           <div class="col-12 mt-4">
-            <button type="submit" class="btn btn-success"><i class="fa fa-save me-2"></i>Guardar Periodo</button>
+            <button type="submit" class="btn btn-success"><i class="fa fa-save me-2"></i>Guardar Cambios</button>
             <a href="/admin/program-type" class="btn btn-warning ms-2"><i class="fa fa-times me-2"></i>Cancelar</a>
           </div>
         </form>

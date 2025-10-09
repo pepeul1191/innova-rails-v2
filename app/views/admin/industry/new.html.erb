@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <h3 class="mb-4">
       <a href="/admin/master-data"><i class="fa fa-cc-mastercard me-2"></i>Gestión de Datos Maestros</a> / 
-      <a href="/admin/program-type">Tipos de Programa</a> /
-      Editar Tipo de Programa
+      <a href="/admin/period">Industria</a> /
+      Crear Industria
     </h3>
 
     <%= render 'partials/flash_messages' %>
@@ -11,25 +11,23 @@
     <div class="card mb-4">
       <div class="card-header">
         <h6 class="mb-0">
-          <i class="fa fa-edit me-2"></i>
-          Editar: <%= @program_type.name %>
+          <i class="fa fa-plus me-2"></i>
+          Nueva Industria
         </h6>
       </div>
 
       <div class="card-body">
-        <form action="/admin/program-type/<%= @program_type.id %>" method="POST" class="row g-3">
-          <input type="hidden" name="_method" value="PUT">
+        <form action="/admin/industry" method="POST" class="row g-3">
           <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
           <div class="col-md-4">
             <label for="name" class="form-label">Nombre</label>
-            <input type="text" id="name" name="name" class="form-control" maxlength="20" 
-                   value="<%= @program_type.name %>" required>
+            <input type="text" id="name" name="name" class="form-control" maxlength="30" required>
           </div>
 
           <div class="col-12 mt-4">
             <button type="submit" class="btn btn-success"><i class="fa fa-save me-2"></i>Guardar Cambios</button>
-            <a href="/admin/program-type" class="btn btn-warning ms-2"><i class="fa fa-times me-2"></i>Cancelar</a>
+            <a href="/admin/industry" class="btn btn-warning ms-2"><i class="fa fa-times me-2"></i>Cancelar</a>
           </div>
         </form>
       </div>

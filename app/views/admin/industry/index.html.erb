@@ -1,7 +1,7 @@
 <main class="main-content">
   <div class="container-fluid">
     <h3 class="mb-4">
-      <a href="/admin/master-data"><i class="fa fa-cc-mastercard me-2"></i>Gestión de Datos Maestros</a> / Tipos de Programas
+      <a href="/admin/master-data"><i class="fa fa-cc-mastercard me-2"></i>Gestión de Datos Maestros</a> / Industrias
     </h3>
 
     <!-- Incluir partial de flash messages -->
@@ -11,12 +11,12 @@
       <div class="card-header">
         <h6 class="mb-0">
           <i class="fa fa-list me-2"></i>
-          Lista de Tipos de de Programas
+          Lista de Industrias
         </h6>
       </div>
       <div class="card-body">
         <div class="d-flex justify-content-end mb-3">
-          <a href="/admin/program-type/new" class="btn btn-success">
+          <a href="/admin/industry/new" class="btn btn-success">
             <i class="fa fa-plus"></i> Agregar Registro
           </a>
         </div>
@@ -26,19 +26,21 @@
             <thead>
               <tr>
                 <th>Nombre</th>
+                <th class="text-end">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              <% if @program_types.any? %>
-                <% @program_types.each do |program_type| %>
+              <% if @industries.any? %>
+                <% @industries.each do |industry| %>
                   <tr>
-                    <td><%= program_type.name %></td>
+                    <td><%= industry.name %></td>
                     <td class="text-end btn-group-sm">
-                      <a href="/admin/program-type/<%= program_type.id %>/edit" class="btn btn-outline-secondary me-1">
+                      <a href="/admin/industry/<%= industry.id %>/edit" class="btn btn-outline-secondary me-1">
                         <i class="fa fa-edit"></i> Editar
                       </a>
-                      <a href="/admin/program-type/<%= program_type.id %>/delete" class="btn btn-outline-danger" data-method="delete"
-                        onclick="return confirm('¿Estás seguro de eliminar este tipo de programa?');">
+                      <a href="/admin/industry/<%= industry.id %>/delete" class="btn btn-outline-danger" data-method="delete"
+                        data-confirm="¿Estás seguro de eliminar esta industria?"
+                        onclick="return confirm('¿Estás seguro de eliminar esta industria?');">
                         <i class="fa fa-trash"></i> Eliminar
                       </a>
                     </td>
@@ -46,7 +48,7 @@
                 <% end %>
               <% else %>
                 <tr>
-                  <td colspan="4" class="text-center">No se encontraron tipos de programas.</td>
+                  <td colspan="4" class="text-center">No se encontraron industris.</td>
                 </tr>
               <% end %>
             </tbody>

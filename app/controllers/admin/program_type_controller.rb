@@ -16,10 +16,13 @@ module Admin
         @program_types = []
         flash.now[:alert] = result[:message]
       end
+
+      render 'admin/program_type/index'
     end
 
     def new
       @nav_link = 'master-data'
+      render 'admin/program_type/new'
     end
 
     def create
@@ -39,6 +42,7 @@ module Admin
       resp = ProgramTypeService.fetch_one(program_type_id)
       if resp[:success]
         @program_type = resp[:data]
+        render 'admin/program_type/edit'
       else
         flash[:alert] = resp[:message]
         redirect_to "/admin/program-type/new"

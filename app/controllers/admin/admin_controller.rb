@@ -5,6 +5,7 @@ module Admin
     def master_data
       @nav_link = 'master-data'
       # Tu código aquí
+      render 'admin/admin/master_data'
     end
   end
 end
