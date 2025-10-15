@@ -3,17 +3,40 @@ module Admin
     layout "dashboard"
 
     def industry_params
-      params.permit(:name)
+      params.permit(:name, :page, :per_page)
     end
+
     # Agrega aquí la lógica de tu controlador
     def index
       @nav_link = 'master-data'
-      result = IndustryService.fetch_all
+      
+      # Obtener parámetros de la URL
+      page = params[:page]&.to_i || 1
+      per_page = params[:per_page]&.to_i || 10
+      search_query = params[:name]
+
+      # Validar que no sean valores negativos o cero
+      page = 1 if page < 1
+      per_page = 10 if per_page < 1
+
+      # Llamar al servicio con paginación
+      result = IndustryService.fetch_all(page: page, per_page: per_page, search_query: search_query)
 
       if result[:success]
-        @industries = result[:data]
+        @industries = result[:data][:industries]
+        @pagination = result[:data][:pagination]
+        @search_query = search_query
       else
         @industries = []
+        @pagination = {
+          page: page,
+          per_page: per_page,
+          total_industries: 0,
+          total_pages: 0,
+          start_record: 0,
+          end_record: 0
+        }
+        @search_query = search_query
         flash.now[:alert] = result[:message]
       end
 
@@ -23,17 +46,6 @@ module Admin
     def new
       @nav_link = 'master-data'
       render 'admin/industry/new'
-    end
-
-    def create
-      resp = IndustryService.create(industry_params)
-      if resp[:success]
-        redirect_to "/admin/industry/#{resp[:data].id}/edit", notice: resp[:message]
-      else
-        flash[:alert] = resp[:message]
-        puts resp
-        redirect_to "/admin/industry/new"
-      end
     end
 
     def edit

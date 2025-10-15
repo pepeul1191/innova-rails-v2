@@ -1,10 +1,39 @@
 # app/services/document_type_service.rb
 class IndustryService < ApplicationService
-  def self.fetch_all
-    industries = Industry.all.order(name: :asc)
-    build_response(data: industries, message: "Lista de industrias obtenida exitosamente")
-  rescue => e
-    handle_error("Error al obtener las industrias: #{e.message}", e.backtrace)
+def self.fetch_all(page: 1, per_page: 10, search_query: nil)
+    begin
+      # Construir consulta base
+      industries = Industry.all.order(name: :asc)
+
+      # Aplicar filtro de búsqueda si existe
+      if search_query.present?
+        industries = industries.where("name ILIKE ?", "%#{search_query}%")
+      end
+
+      # Calcular paginación
+      total_industries = industries.count
+      total_pages = (total_industries.to_f / per_page).ceil
+      offset = (page - 1) * per_page
+
+      # Obtener industries paginados
+      paginated_industries = industries.offset(offset).limit(per_page)
+
+      pagination_data = {
+        industries: paginated_industries,
+        pagination: {
+          page: page,
+          per_page: per_page,
+          total_industries: total_industries,
+          total_pages: total_pages,
+          start_record: offset + 1,
+          end_record: [offset + per_page, total_industries].min
+        }
+      }
+
+      build_response(data: pagination_data, message: "Lista de industrias obtenida exitosamente")
+    rescue => e
+      handle_error("Error al obtener las industrias: #{e.message}", e.backtrace)
+    end
   end
 
   def self.fetch_one(id)

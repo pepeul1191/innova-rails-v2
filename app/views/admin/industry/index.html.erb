@@ -9,15 +9,60 @@
     <div class="card mb-4">
       <div class="card-header">
         <h6 class="mb-0">
+          <i class="fa fa-filter me-2"></i>
+          Filtros de Búsqueda
+        </h6>
+      </div>
+      <div class="card-body">
+        <%= form_with url: "/admin/industry", method: :get, local: true do |form| %>
+          <%= hidden_field_tag :per_page, @pagination[:per_page] %>
+          <div class="row mb-3 align-items-end">
+            <div class="col-md-4">
+              <label for="nombre" class="form-label">Nombre</label>
+              <div class="input-group">
+                <%= text_field_tag :name, @search_query, class: "form-control", placeholder: "Buscar por nombre..." %>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group" style="padding-top: 8px;">
+                <%= button_tag type: :submit, class: "btn btn-primary me-2" do %>
+                  <i class="fa fa-search"></i> Buscar
+                <% end %>
+                <%= link_to "/admin/industry", class: "btn btn-outline-secondary" do %>
+                  <i class="fa fa-refresh"></i> Limpiar
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>        
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <h6 class="mb-0">
           <i class="fa fa-list me-2"></i>
           Lista de Industrias
         </h6>
       </div>
       <div class="card-body">
-        <div class="d-flex justify-content-end mb-3">
-          <a href="/admin/industry/new" class="btn btn-success">
-            <i class="fa fa-plus"></i> Agregar Registro
-          </a>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="d-flex align-items-center me-3">
+            <label for="rows-per-page" class="form-label mb-0 me-2">Filas por página:</label>
+            <%= form_with url: "/admin/industry", method: :get, local: true, id: "per_page_form" do |form| %>
+              <%= hidden_field_tag :name, @search_query %>
+              <%= select_tag :per_page, 
+                  options_for_select([5, 10, 25, 50, 100], @pagination[:per_page]), 
+                  class: "form-select", 
+                  style: "width: 120px;",
+                  onchange: "this.form.submit()" %>
+            <% end %>
+          </div>
+          <div class="d-flex gap-2">
+            <a href="/admin/industry/new" class="btn btn-success">
+              <i class="fa fa-plus"></i> Agregar Registro
+            </a>
+          </div>
         </div>
 
         <div class="table-responsive">
@@ -47,10 +92,53 @@
                 <% end %>
               <% else %>
                 <tr>
-                  <td colspan="4" class="text-center">No se encontraron industris.</td>
+                  <td colspan="2" class="text-center">No se encontraron industrias.</td>
                 </tr>
               <% end %>
             </tbody>
+            <% if @pagination[:total_pages] > 1 %>
+              <tfoot>
+                <tr>
+                  <td colspan="2">
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                      <div class="text-muted">
+                        Página <%= @pagination[:page] %> de <%= @pagination[:total_pages] %> - 
+                        Mostrando registros <%= @pagination[:start_record] %> - <%= @pagination[:end_record] %> 
+                        de un total de <%= @pagination[:total_industries] %>
+                      </div>
+
+                      <nav aria-label="Page navigation">
+                        <ul class="pagination mb-0">
+                          <li class="page-item <%= 'disabled' if @pagination[:page] == 1 %>">
+                            <a class="page-link" href="/admin/industry?page=1&per_page=<%= @pagination[:per_page] %>&name=<%= @search_query %>" aria-label="First">
+                              <i class="fa fa-angle-double-left"></i> Primero
+                            </a>
+                          </li>
+
+                          <li class="page-item <%= 'disabled' if @pagination[:page] == 1 %>">
+                            <a class="page-link" href="/admin/industry?page=<%= @pagination[:page] - 1 %>&per_page=<%= @pagination[:per_page] %>&name=<%= @search_query %>" aria-label="Previous">
+                              <i class="fa fa-angle-left"></i> Anterior
+                            </a>
+                          </li>
+
+                          <li class="page-item <%= 'disabled' if @pagination[:page] == @pagination[:total_pages] %>">
+                            <a class="page-link" href="/admin/industry?page=<%= @pagination[:page] + 1 %>&per_page=<%= @pagination[:per_page] %>&name=<%= @search_query %>" aria-label="Next">
+                              Siguiente <i class="fa fa-angle-right"></i>
+                            </a>
+                          </li>
+
+                          <li class="page-item <%= 'disabled' if @pagination[:page] == @pagination[:total_pages] %>">
+                            <a class="page-link" href="/admin/industry?page=<%= @pagination[:total_pages] %>&per_page=<%= @pagination[:per_page] %>&name=<%= @search_query %>" aria-label="Last">
+                              Último <i class="fa fa-angle-double-right"></i>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
+            <% end %>
           </table>
         </div>
       </div>
