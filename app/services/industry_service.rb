@@ -1,13 +1,13 @@
 # app/services/document_type_service.rb
 class IndustryService < ApplicationService
-def self.fetch_all(page: 1, per_page: 10, search_query: nil)
+  def self.fetch_all(page: 1, per_page: 10, search_query: nil)
     begin
       # Construir consulta base
       industries = Industry.all.order(name: :asc)
 
       # Aplicar filtro de búsqueda si existe
       if search_query.present?
-        industries = industries.where("name ILIKE ?", "%#{search_query}%")
+        industries = industries.where("name LIKE ?", "%#{search_query}%")
       end
 
       # Calcular paginación

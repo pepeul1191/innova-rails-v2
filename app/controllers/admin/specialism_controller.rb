@@ -6,7 +6,7 @@ module Admin
       params.permit(:name)
     end
     # Agrega aquí la lógica de tu controlador
-    def index
+    def index2
       @nav_link = 'master-data'
       result = SpecialismService.fetch_all
 
@@ -19,6 +19,43 @@ module Admin
 
       render 'admin/specialism/index'
     end
+
+    def index
+      @nav_link = 'master-data'
+      
+      # Obtener parámetros de la URL
+      page = params[:page]&.to_i || 1
+      per_page = params[:per_page]&.to_i || 10
+      search_query = params[:name]
+
+      # Validar que no sean valores negativos o cero
+      page = 1 if page < 1
+      per_page = 10 if per_page < 1
+
+      # Llamar al servicio con paginación
+      result = SpecialismService.fetch_all(page: page, per_page: per_page, search_query: search_query)
+
+      if result[:success]
+        @specialisms = result[:data][:specialisms]
+        @pagination = result[:data][:pagination]
+        @search_query = search_query
+      else
+        @specialisms = []
+        @pagination = {
+          page: page,
+          per_page: per_page,
+          total_specialisms: 0,
+          total_pages: 0,
+          start_record: 0,
+          end_record: 0
+        }
+        @search_query = search_query
+        flash.now[:alert] = result[:message]
+      end
+
+      render 'admin/specialism/index'
+    end
+
 
     def new
       @nav_link = 'master-data'

@@ -7,6 +7,7 @@ CREATE TABLE periods (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+CREATE TABLE IF NOT EXISTS "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL);
 CREATE TABLE program_types (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name VARCHAR(20) NOT NULL UNIQUE
@@ -19,7 +20,6 @@ CREATE TABLE industries (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name VARCHAR(30) NOT NULL UNIQUE
 );
-CREATE TABLE IF NOT EXISTS "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL);
 CREATE TABLE specialisms (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name VARCHAR(70) NOT NULL

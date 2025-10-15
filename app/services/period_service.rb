@@ -1,10 +1,39 @@
 # app/services/period_service.rb
 class PeriodService < ApplicationService
-  def self.fetch_all
-    periods = Period.all.order(name: :asc)
-    build_response(data: periods, message: "Lista de periodos obtenida exitosamente")
-  rescue => e
-    handle_error("Error al obtener periodos: #{e.message}", e.backtrace)
+    def self.fetch_all(page: 1, per_page: 10, search_query: nil)
+    begin
+      # Construir consulta base
+      periods = Period.all.order(name: :asc)
+
+      # Aplicar filtro de búsqueda si existe
+      if search_query.present?
+        periods = periods.where("name LIKE ?", "%#{search_query}%")
+      end
+
+      # Calcular paginación
+      total_periods = periods.count
+      total_pages = (total_periods.to_f / per_page).ceil
+      offset = (page - 1) * per_page
+
+      # Obtener periods paginados
+      paginated_periods = periods.offset(offset).limit(per_page)
+
+      pagination_data = {
+        periods: paginated_periods,
+        pagination: {
+          page: page,
+          per_page: per_page,
+          total_periods: total_periods,
+          total_pages: total_pages,
+          start_record: offset + 1,
+          end_record: [offset + per_page, total_periods].min
+        }
+      }
+
+      build_response(data: pagination_data, message: "Lista de periodos obtenida exitosamente")
+    rescue => e
+      handle_error("Error al obtener las periodos: #{e.message}", e.backtrace)
+    end
   end
 
   def self.fetch_one(id)

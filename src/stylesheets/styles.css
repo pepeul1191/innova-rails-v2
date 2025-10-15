@@ -235,3 +235,7 @@ footer{
     color: var(--bs-primary);
     border-radius: 0px !important;
 }
+
+.page-link:hover {
+    color: var(--bs-secondary);
+}

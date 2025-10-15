@@ -4,20 +4,80 @@
       <a href="/admin/master-data"><i class="fa fa-cc-mastercard me-2"></i>Gestión de Datos Maestros</a> / Especialidades de Mentores
     </h3>
 
-    <%= render 'partials/flash_messages' %>
+    <!-- Flash Messages -->
+    <% if flash[:notice] %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= flash[:notice] %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= flash[:alert] %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <h6 class="mb-0">
+          <i class="fa fa-filter me-2"></i>
+          Filtros de Búsqueda
+        </h6>
+      </div>
+      <div class="card-body">
+        <form method="GET" action="/admin/specialism">
+          <input type="hidden" name="per_page" value="<%= @pagination[:per_page] %>">
+          <div class="row mb-3 align-items-end">
+            <div class="col-md-4">
+              <label for="nombre" class="form-label">Nombre</label>
+              <div class="input-group">
+                <input type="text" id="nombre" name="name" class="form-control" placeholder="Buscar por nombre..." value="<%= @search_query %>">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group" style="padding-top: 8px;">
+                <button type="submit" class="btn btn-primary me-2">
+                  <i class="fa fa-search"></i> Buscar
+                </button>
+                <a href="/admin/specialism" class="btn btn-outline-secondary">
+                  <i class="fa fa-refresh"></i> Limpiar
+                </a>
+              </div>
+            </div>
+          </div>
+        </form>        
+      </div>
+    </div>
 
     <div class="card mb-4">
       <div class="card-header">
         <h6 class="mb-0">
           <i class="fa fa-list me-2"></i>
-          Lista de Especialidades
+          Lista de Especialidades de Mentores
         </h6>
       </div>
       <div class="card-body">
-        <div class="d-flex justify-content-end mb-3">
-          <a href="/admin/specialism/new" class="btn btn-success">
-            <i class="fa fa-plus"></i> Agregar Registro
-          </a>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="d-flex align-items-center me-3">
+            <label for="rows-per-page" class="form-label mb-0 me-2">Filas por página:</label>
+            <form method="GET" action="/admin/specialism" id="per_page_form">
+              <input type="hidden" name="name" value="<%= @search_query %>">
+              <select name="per_page" class="form-select" style="width: 120px;" onchange="this.form.submit()">
+                <option value="5" <%= 'selected' if @pagination[:per_page] == 5 %>>5</option>
+                <option value="10" <%= 'selected' if @pagination[:per_page] == 10 %>>10</option>
+                <option value="25" <%= 'selected' if @pagination[:per_page] == 25 %>>25</option>
+                <option value="50" <%= 'selected' if @pagination[:per_page] == 50 %>>50</option>
+                <option value="100" <%= 'selected' if @pagination[:per_page] == 100 %>>100</option>
+              </select>
+            </form>
+          </div>
+          <div class="d-flex gap-2">
+            <a href="/admin/specialism/new" class="btn btn-success">
+              <i class="fa fa-plus"></i> Agregar Registro
+            </a>
+          </div>
         </div>
 
         <div class="table-responsive">
@@ -37,9 +97,9 @@
                       <a href="/admin/specialism/<%= specialism.id %>/edit" class="btn btn-outline-secondary me-1">
                         <i class="fa fa-edit"></i> Editar
                       </a>
-                      <a href="/admin/specialism/<%= specialism.id %>/delete" class="btn btn-outline-danger" data-method="delete"
-                        data-confirm="¿Estás seguro de eliminar esta especialidad?"
-                        onclick="return confirm('¿Estás seguro de eliminar esta especialidad?');">
+                      <a href="/admin/specialism/<%= specialism.id %>/delete" class="btn btn-outline-danger" 
+                         data-method="delete"
+                         onclick="return confirm('¿Estás seguro de eliminar esta especialidad?');">
                         <i class="fa fa-trash"></i> Eliminar
                       </a>
                     </td>
@@ -47,10 +107,53 @@
                 <% end %>
               <% else %>
                 <tr>
-                  <td colspan="4" class="text-center">No se encontraron especialidades.</td>
+                  <td colspan="2" class="text-center">No se encontraron especialidades de mentores.</td>
                 </tr>
               <% end %>
             </tbody>
+            <% if @pagination[:total_pages] > 1 %>
+              <tfoot>
+                <tr>
+                  <td colspan="2">
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                      <div class="text-muted">
+                        Página <%= @pagination[:page] %> de <%= @pagination[:total_pages] %> - 
+                        Mostrando registros <%= @pagination[:start_record] %> - <%= @pagination[:end_record] %> 
+                        de un total de <%= @pagination[:total_specialisms] %>
+                      </div>
+
+                      <nav aria-label="Page navigation">
+                        <ul class="pagination mb-0">
+                          <li class="page-item <%= 'disabled' if @pagination[:page] == 1 %>">
+                            <a class="page-link" href="/admin/specialism?page=1&per_page=<%= @pagination[:per_page] %>&name=<%= @search_query %>" aria-label="First">
+                              <i class="fa fa-angle-double-left"></i> Primero
+                            </a>
+                          </li>
+
+                          <li class="page-item <%= 'disabled' if @pagination[:page] == 1 %>">
+                            <a class="page-link" href="/admin/specialism?page=<%= @pagination[:page] - 1 %>&per_page=<%= @pagination[:per_page] %>&name=<%= @search_query %>" aria-label="Previous">
+                              <i class="fa fa-angle-left"></i> Anterior
+                            </a>
+                          </li>
+
+                          <li class="page-item <%= 'disabled' if @pagination[:page] == @pagination[:total_pages] %>">
+                            <a class="page-link" href="/admin/specialism?page=<%= @pagination[:page] + 1 %>&per_page=<%= @pagination[:per_page] %>&name=<%= @search_query %>" aria-label="Next">
+                              Siguiente <i class="fa fa-angle-right"></i>
+                            </a>
+                          </li>
+
+                          <li class="page-item <%= 'disabled' if @pagination[:page] == @pagination[:total_pages] %>">
+                            <a class="page-link" href="/admin/specialism?page=<%= @pagination[:total_pages] %>&per_page=<%= @pagination[:per_page] %>&name=<%= @search_query %>" aria-label="Last">
+                              Último <i class="fa fa-angle-double-right"></i>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
+            <% end %>
           </table>
         </div>
       </div>

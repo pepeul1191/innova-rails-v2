@@ -8,12 +8,34 @@ module Admin
     # Agrega aquí la lógica de tu controlador
     def index
       @nav_link = 'master-data'
-      result = PeriodService.fetch_all
+      
+      # Obtener parámetros de la URL
+      page = params[:page]&.to_i || 1
+      per_page = params[:per_page]&.to_i || 10
+      search_query = params[:name]
+
+      # Validar que no sean valores negativos o cero
+      page = 1 if page < 1
+      per_page = 10 if per_page < 1
+
+      # Llamar al servicio con paginación
+      result = PeriodService.fetch_all(page: page, per_page: per_page, search_query: search_query)
 
       if result[:success]
-        @periods = result[:data]
+        @periods = result[:data][:periods]
+        @pagination = result[:data][:pagination]
+        @search_query = search_query
       else
         @periods = []
+        @pagination = {
+          page: page,
+          per_page: per_page,
+          total_periods: 0,
+          total_pages: 0,
+          start_record: 0,
+          end_record: 0
+        }
+        @search_query = search_query
         flash.now[:alert] = result[:message]
       end
 
