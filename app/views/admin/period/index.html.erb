@@ -111,14 +111,14 @@
                 <% end %>
               <% else %>
                 <tr>
-                  <td colspan="2" class="text-center">No se encontraron periodos.</td>
+                  <td colspan="4" class="text-center">No se encontraron periodos.</td>
                 </tr>
               <% end %>
             </tbody>
             <% if @pagination[:total_pages] > 1 %>
               <tfoot>
                 <tr>
-                  <td colspan="2">
+                  <td colspan="4">
                     <div class="d-flex justify-content-between align-items-center mt-3">
                       <div class="text-muted">
                         Página <%= @pagination[:page] %> de <%= @pagination[:total_pages] %> - 

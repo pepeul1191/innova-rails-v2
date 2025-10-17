@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     # Verifica si hay un usuario en sesión
-    session[:user_id].present?
+    session[:user].present?
   end
 
   def redirect_if_logged_in

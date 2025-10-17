@@ -12,6 +12,10 @@ application up and running.
     STATIC_URL=http://localhost:3000/
     USERNAME=admin
     PASSWORD=123
+    # ACCESS SERVICE
+    SYSTEM_ID=1
+    X_AUTH_ACCESS_SERVICE=dXNlci1zdGlja3lfc2VjcmV0XzEyMzQ1Njc
+    URL_ACCESS_SERVICE=http://localhost:8085
 
 ### Migraciones con DBMATE
 
