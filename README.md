@@ -5,6 +5,7 @@ application up and running.
 
 ### .env
 
+    # .env
     #### DBMATE
     DB=sqlite:db/app.db
     #### RAILS
@@ -16,6 +17,9 @@ application up and running.
     SYSTEM_ID=1
     X_AUTH_ACCESS_SERVICE=dXNlci1zdGlja3lfc2VjcmV0XzEyMzQ1Njc
     URL_ACCESS_SERVICE=http://localhost:8085
+    # FILES SERVICE
+    URL_FILES_SERVICE=http://localhost:4000
+    X_AUTH_FILES_SERVICE=dXNlci1zdGlja3lfc2VjcmV0XzEyMzQ1Njc
 
 ### Migraciones con DBMATE
 
